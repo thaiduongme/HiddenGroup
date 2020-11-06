@@ -1,3 +1,5 @@
+# Hello cac ban nho
+# Day la tool check hotmail & yahoo nhe!
 from requests_html import HTMLSession
 
 # Check Hotmail
