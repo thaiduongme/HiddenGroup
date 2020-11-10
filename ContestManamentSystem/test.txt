@@ -1,0 +1,4 @@
+ID1|probName|shortDesc|fullDescLink|1.5|category1|author|createdDate
+ID2|probName|shortDesc|fullDescLink|5.0|category2|author|createdDate
+ID4|probName|shortDesc|fullDescLink|5.0|category2|author|createdDate
+ID3|probName|shortDesc|fullDescLink|3.5|category3|author|createdDate
