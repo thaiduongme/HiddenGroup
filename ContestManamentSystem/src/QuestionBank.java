@@ -120,6 +120,7 @@ public class QuestionBank {
         for (Problem p : lstProblems) {
             if (p.getID() == ID) {
                 p.changeInfo();
+                break;
             }
         }
     }
