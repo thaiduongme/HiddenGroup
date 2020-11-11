@@ -122,11 +122,8 @@ public class Authenticator {
             e.printStackTrace();
         }
         
-        System.out.print("Do you want to login? \n Yes: Enter 1 \n No: Enter 2 ");
-        int tc = Integer.parseInt(in.readLine());
-        if(tc == 1){
-            lg.login();
-        }
+        System.out.print("Please login");
+        lg.login();
 
 }
     // append new object 

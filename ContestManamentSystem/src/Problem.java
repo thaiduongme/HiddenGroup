@@ -132,7 +132,7 @@ public class Problem {
 
     public String IDGenerator() {
         Random rand = new Random();
-        ID = String.format("%06d", rand.nextInt(100));
+        ID = String.format("%06d", rand.nextInt(10000));
         return ID;
     }
 
@@ -140,19 +140,11 @@ public class Problem {
         try {
             String temp = "";
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Change category:");
-            if ((temp = in.readLine()).equals("")); else {
-                setCategory(temp);
-            }
-            System.out.println("Change ID:");
-            if ((temp = in.readLine()).equals("")); else {
-                setID(temp);
-            }
             System.out.println("Change problem name:");
             if ((temp = in.readLine()).equals("")); else {
                 setProbName(temp);
             }
-            System.out.println("Change short description:");
+             System.out.println("Change short description:");
             if ((temp = in.readLine()).equals("")); else {
                 setShortDesc(temp);
             }
@@ -160,7 +152,11 @@ public class Problem {
             if ((temp = in.readLine()).equals("")); else {
                 setFullDescLink(temp);
             }
-            System.out.println("Change weight");
+            System.out.println("Change category:");
+            if ((temp = in.readLine()).equals("")); else {
+                setCategory(temp);
+            }
+            System.out.println("Change weight:");
             //tránh trường hợp nhập chữ làm hỏng chương trình
             if ((temp = in.readLine()).equals("")); else {
                 try {
@@ -169,13 +165,9 @@ public class Problem {
                     System.err.println(e.getMessage());
                 }
             }
-            System.out.println("Change author");
+            System.out.println("Change author:");
             if ((temp = in.readLine()).equals("")); else {
                 setAuthor(temp);
-            }
-            System.out.println("Change created date");
-            if ((temp = in.readLine()).equals("")); else {
-                setCreatedDate(temp);
             }
 
 //            }
@@ -185,23 +177,6 @@ public class Problem {
 
     }
 
-    public void changeID() {
-        boolean isUnique = false;
-        String temp = "";
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-        try {
-            while (isUnique == false) {
-                System.out.println("Change ID:");
-                if ((temp = in.readLine()).equalsIgnoreCase("")) {
-                } else {
-                    setID(temp);
-                    isUnique = true;
-                }
-            }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
 
 }

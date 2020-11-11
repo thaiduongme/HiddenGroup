@@ -1,4 +1,3 @@
-
 /**
  *
  * @author Thai Duong
@@ -47,7 +46,7 @@ public class QuestionBank {
      */
     // Mặc định file là "QBs.dat"
     public QuestionBank() {
-        this.path = System.getProperty("user.dir") + "\\QBs.dat";
+        this.path = "QBs.dat";
         loadProblems(path);
         for (Problem p : lstProblems) {
             if (categories.contains(p.getCategory())) {
@@ -60,7 +59,7 @@ public class QuestionBank {
 
     // Truyền vào argument là path của file
     public QuestionBank(String path) {
-        this.path = System.getProperty("user.dir") + "\\" + path;
+        this.path = path;
         loadProblems(this.path);
         for (Problem p : lstProblems) {
             if (categories.contains(p.getCategory())) {
@@ -124,17 +123,16 @@ public class QuestionBank {
 
     // Cập nhật Problems theo ID
     public void updateProblem(String ID) {
+        boolean isExisted = false;
         for (Problem p : lstProblems) {
             if (p.getID() == ID || Integer.parseInt(p.getID()) == Integer.parseInt(ID)) {
                 p.changeInfo();
-                for (Problem p1 : lstProblems) {
-                    while (p1.getID().contains(p.getID()) && p1 != p) {
-                        System.out.println("ID existed, please update the ID");
-                        p.changeID();
-                    }
-                }
+                isExisted = true;
                 break;
             }
+        }
+        if (!isExisted) {
+            System.out.println("ID does not exist.");
         }
     }
 
@@ -175,22 +173,26 @@ public class QuestionBank {
         }
     }
 
-    //thêm câu hỏi
+    // Thêm câu hỏi
     public void addProblem(Problem newProb) {
-
         boolean isUnique = true;
-
         try {
-            for (Problem p : lstProblems) {
-                if (p.getID() == newProb.getID() || Integer.parseInt(p.getID()) == Integer.parseInt(newProb.getID())) {
-                    isUnique = false;
+            while (true) {
+                for (Problem p : lstProblems) {
+                    if (p.getID() == newProb.getID() || Integer.parseInt(p.getID()) == Integer.parseInt(newProb.getID())) {
+                        isUnique = false;
+                        break;
+                    }
                 }
-            }
             if (isUnique == false) {
-                    System.out.println("Problem ID existed");
+                newProb.setID(newProb.IDGenerator());
+                isUnique = true;
+                continue;
                 } else {
                     lstProblems.add(newProb);
+                    break;
                 }
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
