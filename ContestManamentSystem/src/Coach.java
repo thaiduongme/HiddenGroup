@@ -19,35 +19,35 @@ public class Coach {
         this.password = password;
     }
 
-//    public void changeInfo() {
-//        DataInput validator = new DataInput();
-//        if(validator.checkEnter("Do you want to change name ?")) {
-//            this.name = validator.getStringInput("New name: ", "[a-zA-Z ]+");
-//        }
-//        if(validator.checkEnter("Do you want to change password ? ")) {
-//            while(true) {
-//                String currentPassword = validator.getStringInput("Current password: ", "\\w+");
-//                String newPassowrd = validator.getStringInput("New password: ", "\\w+");
-//                String confirmNewPassowrd = validator.getStringInput("Confirm new password: ", "\\w+");
-//                if(currentPassword) { 
-//                    if (newPassowrd.equals(confirmNewPassowrd)) {
-//                        this.password = newPassowrd;
-//                        break;
-//                    } else {
-//                        System.out.println("Incorrect password");
-//                    }
-//                } else {
-//                    System.out.println("Incorrect password");
-//                }
-//            }
-//        }
-//        if(validator.checkEnter("Do you want to change email ? ")) {
-//            this.email = validator.getStringInput("New email", "^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$"); // regex nhap email
-//        }
-//        if(validator.checkEnter("Do you want to change mobile phone ?")) {
-//            this.mobilePhone = validator.getStringInput("New mobile phone: ", "[0-9]{10}"); // regex nhap sdt gom 10 
-//        }
-//    }
+    public void changeInfo() {
+        DataInput validator = new DataInput();
+        if(validator.checkEnter("Do you want to change name ?")) {
+            this.name = validator.getStringInput("New name: ", "[a-zA-Z ]+");
+        }
+        if(validator.checkEnter("Do you want to change password ? ")) {
+            while(true) {
+                String currentPassword = validator.getStringInput("Current password: ", "\\w+");
+                String newPassowrd = validator.getStringInput("New password: ", "\\w+");
+                String confirmNewPassowrd = validator.getStringInput("Confirm new password: ", "\\w+");
+                if(currentPassword==newPassowrd) {
+                    if (newPassowrd.equals(confirmNewPassowrd)) {
+                        this.password = newPassowrd;
+                        break;
+                    } else {
+                        System.out.println("Incorrect password");
+                    }
+                } else {
+                    System.out.println("Incorrect password");
+                }
+            }
+        }
+        if(validator.checkEnter("Do you want to change email ? ")) {
+            this.email = validator.getStringInput("New email", "^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$"); // regex nhap email
+        }
+        if(validator.checkEnter("Do you want to change mobile phone ?")) {
+            this.mobilePhone = validator.getStringInput("New mobile phone: ", "[0-9]{10}"); // regex nhap sdt gom 10
+        }
+    }
 
     public String getId() {
         return id;

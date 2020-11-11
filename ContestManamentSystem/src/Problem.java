@@ -1,38 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Thai Duong
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
+
+/*
+ * @author Hidden Group
  */
 public class Problem {
+
     String ID, createdDate, probName, shortDesc, fullDescLink, category, author;
     double weight;
-    
+
     public Problem() {
-        this.ID = "Unknown";
-        this.createdDate = "Unknown";
-        this.probName = "Unknown";
-        this.shortDesc = "Unknown";
-        this.fullDescLink = "Unknown";
-        this.category = "Unknown";
-        this.author = "Unknown";
+
     }
-    
-    public Problem(String probName, String shortDesc, String fullDescLink, double weight, String category, String author) {
+
+    public Problem(String category, String probName, String shortDesc, String fullDescLink, double weight, Coach coach) {
+        this.ID = IDGenerator();
+        this.probName = probName;
+        this.shortDesc = shortDesc;
+        this.fullDescLink = fullDescLink;
+        this.weight = weight;
+        this.category = category;
+        this.author = coach.getName();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        this.createdDate = dtf.format(now);
+    }
+
+    public Problem(String category, String ID, String probName, String shortDesc, String fullDescLink, double weight, String author) {
+        this.ID = IDGenerator(ID);
         this.probName = probName;
         this.shortDesc = shortDesc;
         this.fullDescLink = fullDescLink;
         this.weight = weight;
         this.category = category;
         this.author = author;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        this.createdDate = dtf.format(now);
     }
-    
-    public Problem(String ID, String probName, String shortDesc, String fullDescLink, double weight, String category, String author, String createdDate) {
-        this.ID = ID;
+
+    public Problem(String category, String ID, String probName, String shortDesc, String fullDescLink, double weight, String author, String createdDate) {
+        this.ID = IDGenerator(ID);
         this.probName = probName;
         this.shortDesc = shortDesc;
         this.fullDescLink = fullDescLink;
@@ -44,7 +58,7 @@ public class Problem {
 
     @Override
     public String toString() {
-        return "Problem{" + "ID=" + ID + ", createdDate=" + createdDate + ", probName=" + probName + ", shortDesc=" + shortDesc + ", fullDescLink=" + fullDescLink + ", category=" + category + ", author=" + author + ", weight=" + weight + '}';
+        return category + "|" + ID + "|" + probName + "|" + shortDesc + "|" + fullDescLink + "|" + weight + "|" + author + "|" + createdDate;
     }
 
     public String getID() {
@@ -52,7 +66,7 @@ public class Problem {
     }
 
     public void setID(String ID) {
-        this.ID = ID;
+        this.ID = IDGenerator(ID);
     }
 
     public String getCreatedDate() {
@@ -110,9 +124,65 @@ public class Problem {
     public void setWeight(double weight) {
         this.weight = weight;
     }
-    
-    public void changeInfo() {
-        
+
+    public String IDGenerator(String ID) {
+        ID = String.format("%06d", Integer.parseInt(ID.replaceAll("[^0-9]", "")));
+        return ID;
     }
-    
+
+    public String IDGenerator() {
+        Random rand = new Random();
+        ID = String.format("%06d", rand.nextInt(100));
+        return ID;
+    }
+
+    public void changeInfo() {
+        try {
+            String temp = "";
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Change category:");
+            if ((temp = in.readLine()).equals("")); else {
+                setCategory(temp);
+            }
+            System.out.println("Change ID:");
+            if ((temp = in.readLine()).equals("")); else {
+                setID(temp);
+            }
+            System.out.println("Change problem name:");
+            if ((temp = in.readLine()).equals("")); else {
+                setProbName(temp);
+            }
+            System.out.println("Change short description:");
+            if ((temp = in.readLine()).equals("")); else {
+                setShortDesc(temp);
+            }
+            System.out.println("Change full description link");
+            if ((temp = in.readLine()).equals("")); else {
+                setFullDescLink(temp);
+            }
+            System.out.println("Change weight");
+            //tránh trường hợp nhập chữ làm hỏng chương trình
+            if ((temp = in.readLine()).equals("")); else {
+                try {
+                    setWeight(Double.parseDouble(temp));
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+            System.out.println("Change author");
+            if ((temp = in.readLine()).equals("")); else {
+                setAuthor(temp);
+            }
+            System.out.println("Change created date");
+            if ((temp = in.readLine()).equals("")); else {
+                setCreatedDate(temp);
+            }
+
+//            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
+
 }
