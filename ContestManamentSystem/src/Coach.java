@@ -1,4 +1,7 @@
-public class Coach {
+
+import java.io.Serializable;
+
+public class Coach implements Serializable {
 
     private String id;
     private String name;
