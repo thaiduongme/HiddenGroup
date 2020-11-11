@@ -12,8 +12,8 @@ import java.util.Random;
  */
 public class Problem {
 
-    String ID, createdDate, probName, shortDesc, fullDescLink, category, author;
-    double weight;
+    private String ID, createdDate, probName, shortDesc, fullDescLink, category, author;
+    private double weight;
 
     public Problem() {
 
