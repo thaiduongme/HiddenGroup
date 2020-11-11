@@ -29,7 +29,7 @@ public class Coach {
                 String currentPassword = validator.getStringInput("Current password: ", "\\w+");
                 String newPassowrd = validator.getStringInput("New password: ", "\\w+");
                 String confirmNewPassowrd = validator.getStringInput("Confirm new password: ", "\\w+");
-                if(currentPassword==newPassowrd) { 
+                if(currentPassword==newPassowrd) {
                     if (newPassowrd.equals(confirmNewPassowrd)) {
                         this.password = newPassowrd;
                         break;
@@ -45,7 +45,7 @@ public class Coach {
             this.email = validator.getStringInput("New email", "^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$"); // regex nhap email
         }
         if(validator.checkEnter("Do you want to change mobile phone ?")) {
-            this.mobilePhone = validator.getStringInput("New mobile phone: ", "[0-9]{10}"); // regex nhap sdt gom 10 
+            this.mobilePhone = validator.getStringInput("New mobile phone: ", "[0-9]{10}"); // regex nhap sdt gom 10
         }
     }
 
