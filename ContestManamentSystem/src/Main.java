@@ -11,7 +11,6 @@ public class Main {
 //        Problem newProb= new Problem("MAE","12","cau1","cau 1 shordesc","cau 1 full desc",15,"Duong");
 //        qb.addProblem(newProb);
        
-       
         qb.updateProblem("0042");
         qb.save();
         qb.exportTo("test.txt");
