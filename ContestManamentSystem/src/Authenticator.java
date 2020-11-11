@@ -1,10 +1,12 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -15,10 +17,10 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 
-
 public class Authenticator {
+    private ArrayList<Coach> lstCoaches = new ArrayList<>();
+    private String path;
     Boolean isLoggedin = false;
-    
     // Nếu isLoggedin = false => Yêu cầu người dùng nhập tài khoản, mật khẩu. (username / password)
         // Nếu có username|password ở trong coaches.data
         // Tạo obj currentCoach với các thông tin  =>>> chua hieuuuu
@@ -28,46 +30,56 @@ public class Authenticator {
         // In ra “Welcome back, {name}”
         // Else
 	// Thông báo “You’re already logged in!”
+
+    public Authenticator() {
+        this.path = "Coaches.dat";
+    }
     
     public void login() throws IOException {
+<<<<<<< HEAD
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         
 //        if(isLoggedin == false){
 //        }
 
         String filename = "Coaches.dat";
+=======
+        BufferedReader nhap = new BufferedReader(new InputStreamReader(System.in));
+        lstCoaches.clear();
+>>>>>>> aa3d51bbf71037dbdba9a2ce2435c73d2ae811b3
         try {
-            File f = new File(filename);
-            FileInputStream fis = new FileInputStream(f);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            int k=1;
-            while(true) {
-                try {
-                    System.out.print("Username: ");
-                    String userName = in.readLine();
-                    System.out.print("Password: ");
-                    String passWord = in.readLine();
-                    
-                    Coach cX = (Coach) ois.readObject();
-                    if (cX.getUserName() == userName && cX.getPassword() == passWord){ // co the sai
-                        System.out.println("Welcome back " +userName);
-                    }
-                    else{
-                        System.out.println("Wrong username or password. Try again");
-                    }
-                } 
-                catch (EOFException e) {
-                    break; //thoát khỏi vòng lặp while true
-                }
+            File fileDir = new File(path);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(fileDir), "UTF8"));
+
+            // Đọc từng dòng một trong file QuestionBank & add vào lstCoaches
+            // Format từng dòng:  ID|name|email|mobilePhone|username|password
+
+            String str;
+            while ((str = in.readLine()) != null) {
+                lstCoaches.add(new Coach(str.split("\\|")[0], str.split("\\|")[1], str.split("\\|")[2], str.split("\\|")[3],
+                        str.split("\\|")[4],str.split("\\|")[5]));
             }
-            ois.close();
-            fis.close();
-        } 
-        catch (Exception e) {
-            e.printStackTrace();
+
+            in.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
         
-        System.out.println("You're already logged in!");
+        String userName = nhap.readLine();
+        String passWord = nhap.readLine();
+        boolean isExisted = false;
+        for (Coach p : lstCoaches) {
+            if (p.getUserName() == userName && p.getPassword() == passWord) {
+                System.out.println("Welcome back: " + userName);
+                isExisted = true;
+                break;
+            }
+        }
+        if (!isExisted) {
+            System.out.println("Failed to login");
+        }
     }
 
     public void logout() {
@@ -106,23 +118,26 @@ public class Authenticator {
         Coach c1 = new Coach(ID, name, email, phone, userName, pass);
         lstCoach.add(c1);
         
-        String filename = "Coaches.dat";
+        String filename = "Coaches.txt";
         File f = new File(filename);
         boolean append = f.exists(); // if file exists then append, otherwise create new
         try {
-            FileOutputStream fos = new FileOutputStream(f);
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            AppendableObjectOutputStream oout = new AppendableObjectOutputStream(fos, append);        
-            oout.writeObject(c1);
-            oout.flush();
-            oout.close();
-            fos.close();
-            System.out.println("Register succesfully");
+            // Sắp xếp trước khi lưu
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+
+            String output = "";
+            for (Coach p : lstCoach) {
+                output += p.getId() + "|" + p.getName() + "|" + p.getEmail() + "|" + p.getMobilePhone() + "|" + p.getUserName()
+                        + "|" + p.getPassword() + "\n";
+            }
+            writer.write(output.trim());
+            writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
-        System.out.print("Please login");
+        System.out.println("Please login");
         lg.login();
 
 }
@@ -158,3 +173,58 @@ public class Authenticator {
 
 
 }
+
+
+//public class Authenticator {
+//    Boolean isLoggedin = false;
+//    
+//    // Nếu isLoggedin = false => Yêu cầu người dùng nhập tài khoản, mật khẩu. (username / password)
+//        // Nếu có username|password ở trong coaches.data
+//        // Tạo obj currentCoach với các thông tin  =>>> chua hieuuuu
+//        // Mỗi dòng có dạng:
+//        // username|password|name|email|mobilePhone
+//        // Login thành công => set isLoggedin = true
+//        // In ra “Welcome back, {name}”
+//        // Else
+//	// Thông báo “You’re already logged in!”
+//    
+//    public void login() throws IOException {
+//        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+//        
+////        if(isLoggedin == false){
+////        }
+//        
+//        String filename = "Coaches.dat";
+//        try {
+//            File f = new File(filename);
+//            FileInputStream fis = new FileInputStream(f);
+//            ObjectInputStream ois = new ObjectInputStream(fis);
+//            int k=1;
+//            while(true) {
+//                try {
+//                    System.out.print("Username: ");
+//                    String userName = in.readLine();
+//                    System.out.print("Password: ");
+//                    String passWord = in.readLine();
+//                    
+//                    Coach cX = (Coach) ois.readObject();
+//                    if (cX.getUserName() == userName && cX.getPassword() == passWord){ // co the sai
+//                        System.out.println("Welcome back " +userName);
+//                    }
+//                    else{
+//                        System.out.println("Wrong username or password. Try again");
+//                    }
+//                } 
+//                catch (EOFException e) {
+//                    break; //thoát khỏi vòng lặp while true
+//                }
+//            }
+//            ois.close();
+//            fis.close();
+//        } 
+//        catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        
+//        System.out.println("You're already logged in!");
+//    }
