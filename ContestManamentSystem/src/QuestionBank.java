@@ -128,16 +128,14 @@ public class QuestionBank {
             if (p.getID() == ID || Integer.parseInt(p.getID()) == Integer.parseInt(ID)) {
                 p.changeInfo();
                 for (Problem p1 : lstProblems) {
-                    if (p1.getID().contains(p.getID())) {
-                        System.out.println("ID existed, please update the problem again");
-                        p.changeInfo();
+                    while (p1.getID().contains(p.getID()) && p1 != p) {
+                        System.out.println("ID existed, please update the ID");
+                        p.changeID();
                     }
                 }
                 break;
             }
-
         }
-
     }
 
     // Xuất QuestionBank vào 1 file nào đó
@@ -148,8 +146,8 @@ public class QuestionBank {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
             String output = "";
             for (Problem p : lstProblems) {
-                output += p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink() + "|"
-                        + p.getWeight() + "|" + p.getCategory() + "|" + p.getAuthor() + "|" + p.getCreatedDate() + "\n";
+                output += p.getCategory() + "|" + p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink() + "|"
+                        + p.getWeight() + "|" + p.getAuthor() + "|" + p.getCreatedDate() + "\n";
             }
             writer.write(output.trim());
             writer.close();
@@ -179,8 +177,24 @@ public class QuestionBank {
 
     //thêm câu hỏi
     public void addProblem(Problem newProb) {
-        loadProblems(path);
-        lstProblems.add(newProb);
+
+        boolean isUnique = true;
+
+        try {
+            for (Problem p : lstProblems) {
+                if (p.getID() == newProb.getID() || Integer.parseInt(p.getID()) == Integer.parseInt(newProb.getID())) {
+                    isUnique = false;
+                }
+            }
+            if (isUnique == false) {
+                    System.out.println("Problem ID existed");
+                } else {
+                    lstProblems.add(newProb);
+                }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
     }
 
 }

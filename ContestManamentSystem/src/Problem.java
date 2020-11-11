@@ -185,4 +185,23 @@ public class Problem {
 
     }
 
+    public void changeID() {
+        boolean isUnique = false;
+        String temp = "";
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+        try {
+            while (isUnique == false) {
+                System.out.println("Change ID:");
+                if ((temp = in.readLine()).equalsIgnoreCase("")) {
+                } else {
+                    setID(temp);
+                    isUnique = true;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
 }
