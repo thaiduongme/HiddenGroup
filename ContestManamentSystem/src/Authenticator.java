@@ -1,10 +1,14 @@
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import static java.io.ObjectStreamConstants.STREAM_MAGIC;
+import static java.io.ObjectStreamConstants.STREAM_VERSION;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 
@@ -43,13 +47,13 @@ public class Authenticator {
         /* String ID, name, email, mobilePhone, username, password;
         Coaches.dat format: ID|name|email|mobilePhone|username|password */
 
-// Yêu cầu người dùng nhập các thông tin cần thiết, lưu vào các biến
-// Append vào cuối file coaches.dat
-// Thông báo đăng ký thành công!
-// In ra: “Do you want to login? “
-// gọi method login()
+        // Yêu cầu người dùng nhập các thông tin cần thiết, lưu vào các biến
+        // Append vào cuối file coaches.dat
+        // Thông báo đăng ký thành công!
+        // In ra: “Do you want to login? “
+        // gọi method login()
+        Authenticator lg = new Authenticator();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String filename = "Coach.dat";
         ArrayList <Coach> lstCoach = new ArrayList<>();
         System.out.print("Enter ID: ");
         String ID = in.readLine();
@@ -63,20 +67,61 @@ public class Authenticator {
         String userName = in.readLine();
         System.out.print("Enter password: ");
         String pass = in.readLine();
-        Coach c1 = new Coach("1234", "Trung Duc", "duc@gmail.com", "0916", "ducndt", "123454");
+        Coach c1 = new Coach(ID, name, email, phone, userName, pass);
         lstCoach.add(c1);
+        
+        String filename = "Coach.dat";
+        File f = new File(filename);
+        boolean append = f.exists(); // if file exists then append, otherwise create new
         try {
-            File f = new File(filename);
             FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(c1);
-            oos.flush();
-            oos.close();
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            AppendableObjectOutputStream oout = new AppendableObjectOutputStream(fos, append);        
+            oout.writeObject(c1);
+            oout.flush();
+            oout.close();
             fos.close();
-            System.out.println("Write objects to file ");
+            System.out.println("Register succesfully");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        System.out.print("Do you want to login? \n Yes: Enter 1 \n No: Enter 2 ");
+        int tc = Integer.parseInt(in.readLine());
+        if(tc == 1){
+            lg.login();
         }
        
 }
+    // append new object 
+    public class AppendableObjectOutputStream extends ObjectOutputStream {
+        private boolean append;
+        private boolean initialized;
+        private DataOutputStream dout;
+        
+        protected AppendableObjectOutputStream(boolean append) throws IOException, SecurityException {
+            super();
+            this.append = append;
+            this.initialized = true;
+        }
+
+        public AppendableObjectOutputStream(OutputStream out, boolean append) throws IOException {
+            super(out);
+            this.append = append;
+            this.initialized = true;
+            this.dout = new DataOutputStream(out);
+            this.writeStreamHeader();
+        }
+
+    @Override
+    protected void writeStreamHeader() throws IOException {
+        if (!this.initialized || this.append) return;
+        if (dout != null) {
+            dout.writeShort(STREAM_MAGIC);
+            dout.writeShort(STREAM_VERSION);
+        }
+    }
+    }   
+
 
 }
