@@ -29,7 +29,7 @@ public class Coach {
                 String currentPassword = validator.getStringInput("Current password: ", "\\w+");
                 String newPassowrd = validator.getStringInput("New password: ", "\\w+");
                 String confirmNewPassowrd = validator.getStringInput("Confirm new password: ", "\\w+");
-                if(currentPassword) { 
+                if(currentPassword==newPassowrd) { 
                     if (newPassowrd.equals(confirmNewPassowrd)) {
                         this.password = newPassowrd;
                         break;
