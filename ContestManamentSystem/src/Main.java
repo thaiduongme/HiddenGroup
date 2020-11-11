@@ -8,12 +8,12 @@ public class Main {
         Coach duong= new Coach();
         duong.setName("Duong");
         QuestionBank qb = new QuestionBank();
-        Problem newProb= new Problem("MAE","P10001","cau1","cau 1 shordesc","cau 1 full desc",15,duong);
-        qb.addProblem(newProb);
+//        Problem newProb= new Problem("MAE","cau1","cau 1 shordesc","cau 1 full desc",15,duong);
+//        qb.addProblem(newProb);
        
        
-        qb.updateProblem("P10001");
-         qb.save();
+        qb.updateProblem("1");
+        qb.save();
         qb.exportTo("test.txt");
     }
     

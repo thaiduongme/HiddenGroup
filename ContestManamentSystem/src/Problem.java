@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 
 /*
@@ -17,8 +18,9 @@ public class Problem {
     public Problem() {
 
     }
-public Problem(String category,String ID,String probName, String shortDesc, String fullDescLink, double weight, Coach coach) {
-         this.ID = ID;
+
+    public Problem(String category, String probName, String shortDesc, String fullDescLink, double weight, Coach coach) {
+        this.ID = IDGenerator();
         this.probName = probName;
         this.shortDesc = shortDesc;
         this.fullDescLink = fullDescLink;
@@ -29,8 +31,9 @@ public Problem(String category,String ID,String probName, String shortDesc, Stri
         LocalDateTime now = LocalDateTime.now();
         this.createdDate = dtf.format(now);
     }
-    public Problem(String category,String ID,String probName, String shortDesc, String fullDescLink, double weight,  String author) {
-         this.ID = ID;
+
+    public Problem(String category, String ID, String probName, String shortDesc, String fullDescLink, double weight, String author) {
+        this.ID = IDGenerator(ID);
         this.probName = probName;
         this.shortDesc = shortDesc;
         this.fullDescLink = fullDescLink;
@@ -42,8 +45,8 @@ public Problem(String category,String ID,String probName, String shortDesc, Stri
         this.createdDate = dtf.format(now);
     }
 
-    public Problem(String category,String ID, String probName, String shortDesc, String fullDescLink, double weight,  String author, String createdDate) {
-        this.ID = ID;
+    public Problem(String category, String ID, String probName, String shortDesc, String fullDescLink, double weight, String author, String createdDate) {
+        this.ID = IDGenerator(ID);
         this.probName = probName;
         this.shortDesc = shortDesc;
         this.fullDescLink = fullDescLink;
@@ -55,7 +58,7 @@ public Problem(String category,String ID,String probName, String shortDesc, Stri
 
     @Override
     public String toString() {
-        return category +"|"+ ID + "|"  + probName + "|"  + shortDesc + "|"  +  fullDescLink + "|"  + weight + "|"  +author + "|" + createdDate;
+        return category + "|" + ID + "|" + probName + "|" + shortDesc + "|" + fullDescLink + "|" + weight + "|" + author + "|" + createdDate;
     }
 
     public String getID() {
@@ -63,7 +66,7 @@ public Problem(String category,String ID,String probName, String shortDesc, Stri
     }
 
     public void setID(String ID) {
-        this.ID = ID;
+        this.ID = IDGenerator(ID);
     }
 
     public String getCreatedDate() {
@@ -122,38 +125,62 @@ public Problem(String category,String ID,String probName, String shortDesc, Stri
         this.weight = weight;
     }
 
+    public String IDGenerator(String ID) {
+        ID = String.format("%06d", Integer.parseInt(ID.replaceAll("[^0-9]", "")));
+        return ID;
+    }
+
+    public String IDGenerator() {
+        Random rand = new Random();
+        ID = String.format("%06d", rand.nextInt(100));
+        return ID;
+    }
+
     public void changeInfo() {
         try {
-            String temp="";
+            String temp = "";
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Change category:");
-            if((temp=in.readLine()).equals(""));
-                else setCategory(temp);
+            if ((temp = in.readLine()).equals("")); else {
+                setCategory(temp);
+            }
             System.out.println("Change ID:");
-            if((temp=in.readLine()).equals(""));
-                else setID(temp);
+            if ((temp = in.readLine()).equals("")); else {
+                setID(temp);
+            }
             System.out.println("Change problem name:");
-            if((temp=in.readLine()).equals(""));
-                else setProbName(temp);
+            if ((temp = in.readLine()).equals("")); else {
+                setProbName(temp);
+            }
             System.out.println("Change short description:");
-            if((temp=in.readLine()).equals(""));
-                else setShortDesc(temp);
+            if ((temp = in.readLine()).equals("")); else {
+                setShortDesc(temp);
+            }
             System.out.println("Change full description link");
-            if((temp=in.readLine()).equals(""));
-                else setFullDescLink(temp);
+            if ((temp = in.readLine()).equals("")); else {
+                setFullDescLink(temp);
+            }
             System.out.println("Change weight");
-            if((temp=in.readLine()).equals(""));
-                else setWeight(Double.parseDouble(temp));
+            //tránh trường hợp nhập chữ làm hỏng chương trình
+            if ((temp = in.readLine()).equals("")); else {
+                try {
+                    setWeight(Double.parseDouble(temp));
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
             System.out.println("Change author");
-            if((temp=in.readLine()).equals(""));
-                else setAuthor(temp);
+            if ((temp = in.readLine()).equals("")); else {
+                setAuthor(temp);
+            }
             System.out.println("Change created date");
-            if((temp=in.readLine()).equals(""));
-                else setCreatedDate(temp);
- 
+            if ((temp = in.readLine()).equals("")); else {
+                setCreatedDate(temp);
+            }
+
 //            }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
     }

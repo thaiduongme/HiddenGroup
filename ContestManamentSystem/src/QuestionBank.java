@@ -90,7 +90,7 @@ public class QuestionBank {
             String str;
             while ((str = in.readLine()) != null) {
                 lstProblems.add(new Problem(str.split("\\|")[0], str.split("\\|")[1], str.split("\\|")[2], str.split("\\|")[3],
-                         str.split("\\|")[4],Double.parseDouble(str.split("\\|")[5]), str.split("\\|")[6], str.split("\\|")[7]));
+                        str.split("\\|")[4], Double.parseDouble(str.split("\\|")[5]), str.split("\\|")[6], str.split("\\|")[7]));
             }
 
             in.close();
@@ -104,11 +104,11 @@ public class QuestionBank {
     public void sortProblems() {
         Collections.sort(lstProblems, new Comparator<Problem>() {
             @Override
-            public int compare(Problem t, Problem t1) {
-                if (t.getCategory() != t1.getCategory()) {
-                    return t.getCategory().compareToIgnoreCase(t1.getCategory());
+            public int compare(Problem t1, Problem t2) {
+                if (t1.getCategory() != t2.getCategory()) {
+                    return t1.getCategory().compareToIgnoreCase(t2.getCategory());
                 } else {
-                    return t.getID().compareToIgnoreCase(t1.getID());
+                    return t1.getID().compareToIgnoreCase(t2.getID());
                 }
             }
         });
@@ -125,11 +125,19 @@ public class QuestionBank {
     // Cập nhật Problems theo ID
     public void updateProblem(String ID) {
         for (Problem p : lstProblems) {
-            if (p.getID() == ID) {
+            if (p.getID() == ID || Integer.parseInt(p.getID()) == Integer.parseInt(ID)) {
                 p.changeInfo();
+                for (Problem p1 : lstProblems) {
+                    if (p1.getID().contains(p.getID())) {
+                        System.out.println("ID existed, please update the problem again");
+                        p.changeInfo();
+                    }
+                }
                 break;
             }
+
         }
+
     }
 
     // Xuất QuestionBank vào 1 file nào đó
@@ -140,13 +148,13 @@ public class QuestionBank {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
             String output = "";
             for (Problem p : lstProblems) {
-                output += p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink() +"|" 
+                output += p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink() + "|"
                         + p.getWeight() + "|" + p.getCategory() + "|" + p.getAuthor() + "|" + p.getCreatedDate() + "\n";
             }
             writer.write(output.trim());
             writer.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -156,24 +164,23 @@ public class QuestionBank {
             // Sắp xếp trước khi lưu
             sortProblems();
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-            
+
             String output = "";
             for (Problem p : lstProblems) {
-                output += p.getCategory() + "|" +p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink() 
-                        + "|" + p.getWeight() + "|" +  p.getAuthor() + "|" + p.getCreatedDate() + "\n";
+                output += p.getCategory() + "|" + p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink()
+                        + "|" + p.getWeight() + "|" + p.getAuthor() + "|" + p.getCreatedDate() + "\n";
             }
             writer.write(output.trim());
             writer.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
-    public void addProblem(Problem newProb){
-        loadProblems( path);
+
+    //thêm câu hỏi
+    public void addProblem(Problem newProb) {
+        loadProblems(path);
         lstProblems.add(newProb);
     }
-            
 
-    
-    
 }

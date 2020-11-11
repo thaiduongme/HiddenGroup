@@ -12,11 +12,11 @@ public class Authenticator {
     Boolean isLoggedin = false;
     public void login() throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        // Nếu isLoggedin = false => Yêu cầu người dùng nhập tài khoản, mật khẩu. (username / password) 
+        // Nếu isLoggedin = false => Yêu cầu người dùng nhập tài khoản, mật khẩu. (username / password)
         // Nếu có username|password ở trong coaches.data
         // Tạo obj currentCoach với các thông tin  =>>> chua hieuuuu
         // Mỗi dòng có dạng:
-        // username|password|name|email|mobilePhone 
+        // username|password|name|email|mobilePhone
         // Login thành công => set isLoggedin = true
         // In ra “Welcome back, {name}”
         // Else
@@ -27,7 +27,7 @@ public class Authenticator {
             System.out.print("Password: ");
             String password = in.readLine();
         }
-        
+
         System.out.println("You're already logged in!");
     }
 
@@ -39,7 +39,7 @@ public class Authenticator {
     }
 
     public void register() throws IOException {
-        
+
         /* String ID, name, email, mobilePhone, username, password;
         Coaches.dat format: ID|name|email|mobilePhone|username|password */
 
@@ -76,7 +76,7 @@ public class Authenticator {
             System.out.println("Write objects to file ");
         } catch (Exception e) {
         }
-       
+
 }
 
 }
