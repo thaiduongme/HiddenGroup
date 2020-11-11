@@ -1,10 +1,12 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -107,23 +109,26 @@ public class Authenticator {
         Coach c1 = new Coach(ID, name, email, phone, userName, pass);
         lstCoach.add(c1);
         
-        String filename = "Coaches.dat";
+        String filename = "Coaches.txt";
         File f = new File(filename);
         boolean append = f.exists(); // if file exists then append, otherwise create new
         try {
-            FileOutputStream fos = new FileOutputStream(f);
-//            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            AppendableObjectOutputStream oout = new AppendableObjectOutputStream(fos, append);        
-            oout.writeObject(c1);
-            oout.flush();
-            oout.close();
-            fos.close();
-            System.out.println("Register succesfully");
+            // Sắp xếp trước khi lưu
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+
+            String output = "";
+            for (Coach p : lstCoach) {
+                output += p.getId() + "|" + p.getName() + "|" + p.getEmail() + "|" + p.getMobilePhone() + "|" + p.getUserName()
+                        + "|" + p.getPassword() + "\n";
+            }
+            writer.write(output.trim());
+            writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         
-        System.out.print("Please login");
+        System.out.println("Please login");
         lg.login();
 
 }

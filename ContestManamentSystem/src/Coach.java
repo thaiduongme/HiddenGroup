@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -7,14 +6,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-public class Coach {
-=======
 import java.io.Serializable;
 
-public class Coach implements Serializable {
->>>>>>> 123ac256c63ee48da9ad098b6ab6a3f758ea7df0
 
+public class Coach implements Serializable {
     private String id;
     private String name;
     private String email;
