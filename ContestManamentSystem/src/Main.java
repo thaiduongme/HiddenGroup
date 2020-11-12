@@ -5,6 +5,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Authenticator auth = new Authenticator();
+        Contest ct = new Contest();
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
@@ -38,12 +39,16 @@ public class Main {
                 }
                 switch (func_answer) {
                     case 1:
+                        String tmp = "";
+                        Scanner scanner = new Scanner(System.in);
                         auth.getCurrentCoach().changeInfo();
                         System.out.println("Changed Successfully!");
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 2:
                         Problem newProb = new Problem();
-                        Scanner scanner = new Scanner(System.in);
+                        scanner = new Scanner(System.in);
                         System.out.print("Enter problem name: ");
                         newProb.setProbName(scanner.nextLine());
                         System.out.print("Enter short description: ");
@@ -60,51 +65,76 @@ public class Main {
                         newProb.setAuthor(auth.getCurrentCoach().getName());  
                         qb.addProblem(newProb);
                         System.out.println("Added Question to Question Bank!");
-                        
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 3:
-                        
-                        String tmp = "";
+                        tmp = "";
                         scanner = new Scanner(System.in);
                         while (tmp.equals("")) {
                             System.out.print("Enter Problem ID: ");
                             tmp = scanner.nextLine();
                         }
                         qb.updateProblem(tmp);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                         
                     case 4:
-//                        Contest.generateNewContest();
+                        ct.generateNewContest(auth.getCurrentCoach());
                         System.out.println("Created contest successfully!");
+                        scanner = new Scanner(System.in);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 5:
+                        tmp = "";
                         scanner = new Scanner(System.in);
-                        System.out.print("Enter Contest ID: ");
-//                        Contest.printContest(scanner.nextLine());
+                        while (tmp.equals("")) {
+                            System.out.print("Enter Contest ID: ");
+                            tmp = scanner.nextLine();
+                        }
+                        ct.printContest(tmp);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 6:
                         qb.sortProblems();
                         System.out.println("Sorted question bank Successfully!");
+                        scanner = new Scanner(System.in);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 7:
                         qb.save();
                         System.out.println("Saved question bank Successfully!");
+                        scanner = new Scanner(System.in);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 8:
                         scanner = new Scanner(System.in);
                         System.out.print("Path to QB file: ");
                         qb.loadProblems(scanner.nextLine());
+                        scanner = new Scanner(System.in);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 9:
                         scanner = new Scanner(System.in);
                         System.out.print("Export to path: ");
                         qb.exportTo(scanner.nextLine());
+                        scanner = new Scanner(System.in);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                     case 10:
                         auth.logout();
+                        scanner = new Scanner(System.in);
+                        System.out.print("Enter to continue..");
+                        tmp = scanner.nextLine();
                         break;
                 }
-                clearScreen();
                 
             } else {
                 int func_answer;
@@ -144,10 +174,6 @@ public class Main {
 //        qb.updateProblem("000012045845");
 //        qb.save();
 
-    }
-    // abcs
-    public static void clearScreen() {
-        for (int i = 0; i < 50; ++i) System.out.println();
     }
     
 }

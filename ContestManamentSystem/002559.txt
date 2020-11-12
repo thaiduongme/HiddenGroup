@@ -1,0 +1,8 @@
+Contest Code: 002559
+Author: thaiduong
+Created date: 2020/11/12 23:28:01
+Problems:
+MAE|000001|cau1|cau 1 shordesc|cau 1 full desc|Weight: 15.0|Duong|2020/11/11 17:24:15
+CEA|000009|cau1|cau 1 shordesc|cau 1 full desc|Weight: 15.0|Duong|2020/11/12 09:32:31
+CSI|000064|cau1|cau 1 shordesc|cau 1 full desc|Weight: 15.0|Duong|2020/11/12 09:50:24
+Total Mark: 45.0

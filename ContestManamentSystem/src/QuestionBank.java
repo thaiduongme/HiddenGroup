@@ -29,6 +29,10 @@ public class QuestionBank {
     public ArrayList<Problem> getLstProblems() {
         return lstProblems;
     }
+    
+    public ArrayList<String> getCategories() {
+        return categories;
+    }
 
     public void setLstProblems(ArrayList<Problem> lstProblems) {
         this.lstProblems = lstProblems;
