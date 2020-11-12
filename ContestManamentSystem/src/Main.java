@@ -8,16 +8,7 @@ public class Main {
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
-<<<<<<< HEAD
             if (auth.isLoggedIn) {
-=======
-<<<<<<< HEAD
-            Authenticator auth = new Authenticator();
-            if (auth.isLoggedin) {
-=======
-            if (auth.isLoggedin()) {
->>>>>>> ac7a02e9b30faf7a13ae27edd54a8e62e4887f8b
->>>>>>> ef8831e4a311d4091e4b1deb5327ec6a6e613ce4
                 int func_answer;
                 QuestionBank qb = new QuestionBank();
                 System.out.println("Welcome back, " + auth.getCurrentCoach().getName());
@@ -62,13 +53,10 @@ public class Main {
                         System.out.print("Enter category: ");
                         newProb.setCategory(scanner.nextLine());
                         System.out.print("Enter weight: ");
-<<<<<<< HEAD
                         newProb.setWeight(Double.parseDouble(scanner.nextLine()));
                         newProb.setID(newProb.IDGenerator());
-=======
                         newProb.setWeight(scanner.nextDouble());
                         newProb.setID("blabla");
->>>>>>> ef8831e4a311d4091e4b1deb5327ec6a6e613ce4
                         newProb.setAuthor(auth.getCurrentCoach().getName());  
                         qb.addProblem(newProb);
                         System.out.println("Added Question to Question Bank!");

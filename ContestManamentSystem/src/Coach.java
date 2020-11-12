@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +19,8 @@ public class Coach implements Serializable {
     private String mobilePhone;
     private String userName;
     private String password;
+    ArrayList<Coach> lstCoaches = new ArrayList<>();
+    
 
     public Coach() {
     }
@@ -39,16 +44,17 @@ public class Coach implements Serializable {
         this.password = password;
     }
 
-    public void changeInfo() {
+    public void changeInfo() throws FileNotFoundException {
+        readFromFile();
         DataInput validator = new DataInput();
-        if(!validator.checkEnter("Do you want to change name ?")) {
+        if(!validator.checkEnter("Do you want to change name? [" + name + "]")) {
             this.name = validator.getStringInput("New name: ", "[a-zA-Z ]+");
         }
-        if(!validator.checkEnter("Do you want to change password ? ")) {
+        if(!validator.checkEnter("Do you want to change password? ")) {
             while(true) {
-                String currentPassword = validator.getStringInput("Current password: ", "\\w+");
-                String newPassword = validator.getStringInput("New password: ", "\\w+");
-                String confirmNewPassword = validator.getStringInput("Confirm new password: ", "\\w+");
+                String currentPassword = validator.passwordValidator("Current password: ", "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
+                String newPassword = validator.passwordValidator("New password: ", "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
+                String confirmNewPassword = validator.passwordValidator("Confirm new password: ", "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
                 if(currentPassword.equals(this.password)) {
                     if (newPassword.equals(confirmNewPassword)) {
                         this.password = newPassword;
@@ -61,11 +67,32 @@ public class Coach implements Serializable {
                 }
             }
         }
-        if(!validator.checkEnter("Do you want to change email ? ")) {
-            this.email = validator.getStringInput("New email", "^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$"); // regex nhập email
+        if(!validator.checkEnter("Do you want to change email? [" + email + "]")) {
+            this.email = validator.emailValidator("New email: ", "^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$"); // regex nhập email
         }
-        if(!validator.checkEnter("Do you want to change mobile phone ?")) {
-            this.mobilePhone = validator.getStringInput("New mobile phone: ", "[0-9]{10}"); // regex sđt 
+        if(!validator.checkEnter("Do you want to change mobile phone? [" + mobilePhone + "]")) {
+            this.mobilePhone = validator.mobilePhoneValidator("New mobile phone: ", "0[0-9]{9, 10}"); // regex sđt 
+        }
+        for (int i = 0; i < lstCoaches.size(); i++) {
+            if(lstCoaches.get(i).getUserName().equals(userName)) {
+                lstCoaches.set(i, this);
+            }
+        }
+        
+        try {
+            // Sắp xếp trước khi lưu
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Coaches.dat"));
+
+            String output = "";
+            for (Coach p : lstCoaches) {
+                output += p.getId() + "|" + p.getName() + "|" + p.getEmail() + "|" + p.getMobilePhone() + "|" + p.getUserName()
+                        + "|" + p.getPassword() + "\n";
+            }
+            writer.write(output.trim());
+            writer.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -128,42 +155,26 @@ public class Coach implements Serializable {
         return id;
     }
 
-    public List<Coach> readFromFile() throws FileNotFoundException {
-//        Coach c = new Coach();
-//        try {
-//            FileReader fr = new FileReader("Coaches.dat");      //thay thế toString cũ của currentCoach bằng " "
-//            BufferedReader br = new BufferedReader(fr);
-//            String line = "";
-//            while(true) {
-//                line = br.readLine();
-//                if(line.contains(c.getUserName())) {
-//                    line = line.replace(c.toString(), " ");
-//                }
-//            }
-//        } catch (Exception e) {
-//        }
-//        try {
-//            FileWriter fw = new FileWriter("Coaches.dat", true);    //ghi toString mới cho currentCoach
-//            BufferedWriter bw = new BufferedWriter(fw);
-//            bw.write(c.toString());
-//            bw.close();
-//            fw.close();
-//        } catch (Exception e) {
-//        }
-        List<Coach> lstCoach = new ArrayList<>();
+    public void readFromFile() throws FileNotFoundException {
         try {
-            FileReader fr = new FileReader("Coaches.dat");
-            BufferedReader br = new BufferedReader(fr);
-            String line = "";
-            while(true) {
-                line = br.readLine();
-                if(line == null) break;
+            File fileDir = new File("Coaches.dat");
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            new FileInputStream(fileDir), "UTF8"));
+
+            // Đọc từng dòng một trong file Coaches & add vào lstCoaches
+            // Format từng dòng:  ID|name|email|mobilePhone|username|password
+
+            String str;
+            while ((str = in.readLine()) != null) {
+                lstCoaches.add(new Coach(str.split("\\|")[0], str.split("\\|")[1], str.split("\\|")[2], str.split("\\|")[3],
+                        str.split("\\|")[4],str.split("\\|")[5]));
             }
-            lstCoach.add(new Coach(line.split("\\|")[0], line.split("\\|")[1], line.split("\\|")[2], 
-                                   line.split("\\|")[3], line.split("\\|")[4], line.split("\\|")[5])); 
+
+            in.close();
         } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        return lstCoach; 
     }
         
     @Override

@@ -40,20 +40,10 @@ public class Authenticator {
         // In ra “Welcome back, {name}”
         // Else
 	// Thông báo “You’re already logged in!”
-
-<<<<<<< HEAD
-
-   
-=======
-    public Authenticator() {
-        this.path = "Coaches.dat";
-    }
     
     public boolean isLoggedin(){
         return false;
     }
-       
->>>>>>> ef8831e4a311d4091e4b1deb5327ec6a6e613ce4
     public void login() throws IOException {
         BufferedReader nhap = new BufferedReader(new InputStreamReader(System.in));
         lstCoaches.clear();
@@ -84,14 +74,10 @@ public class Authenticator {
         boolean isExisted = false;
         for (Coach p : lstCoaches) {
             if (p.getUserName().equals(userName) && p.getPassword().equals(passWord)) {
-<<<<<<< HEAD
                 System.out.println("Welcome back, " + userName);
                 currentCoach = p;
                 this.isLoggedIn = true;
                 isExisted = true;
-=======
-                System.out.println("Welcome back: " + userName);
->>>>>>> ef8831e4a311d4091e4b1deb5327ec6a6e613ce4
                 break;
             }
         }
@@ -110,7 +96,7 @@ public class Authenticator {
                     new InputStreamReader(
                             new FileInputStream(fileDir), "UTF8"));
 
-            // Đọc từng dòng một trong file QuestionBank & add vào lstCoaches
+            // Đọc từng dòng một trong file Coaches & add vào lstCoaches
             // Format từng dòng:  ID|name|email|mobilePhone|username|password
 
             String str;
@@ -141,18 +127,16 @@ public class Authenticator {
         // In ra: “Do you want to login? “
         // gọi method login()
         loadLstCoach();
+        DataInput validator = new DataInput();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         
         System.out.print("Enter name: ");
         String name = in.readLine();
-        System.out.print("Enter email: ");
-        String email = in.readLine();
-        System.out.print("Enter mobile phone: ");
-        String phone = in.readLine();
+        String email = validator.emailValidator("Enter email: ", "^[a-zA-Z]\\w+@\\w+(\\.\\w+){1,2}$");
+        String phone = validator.mobilePhoneValidator("Enter mobile phone: ", "[0-9]{10}");
         System.out.print("Enter username: ");
         String userName = in.readLine();
-        System.out.print("Enter password: ");
-        String pass = in.readLine();
+        String pass = validator.passwordValidator("Enter password: ", "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
         Coach c1 = new Coach(name, email, phone, userName, pass);
         lstCoaches.add(c1);
         
