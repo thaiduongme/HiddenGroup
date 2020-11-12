@@ -132,7 +132,7 @@ public class Problem {
 
     public String IDGenerator() {
         Random rand = new Random();
-        ID = String.format("%06d", rand.nextInt(10000));
+        ID = String.format("%06d", rand.nextInt(100));
         return ID;
     }
 
