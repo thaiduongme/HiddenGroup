@@ -164,8 +164,7 @@ public class QuestionBank {
         try {
             // Sắp xếp trước khi lưu
             sortProblems();
-            BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.path));
             String output = "";
             for (Problem p : lstProblems) {
                 output += p.getCategory() + "|" + p.getID() + "|" + p.getProbName() + "|" + p.getShortDesc() + "|" + p.getFullDescLink()

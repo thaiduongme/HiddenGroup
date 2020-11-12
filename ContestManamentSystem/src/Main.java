@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 import java.io.IOException;
 
@@ -6,12 +7,12 @@ public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         Authenticator auth = new Authenticator();
         Contest ct = new Contest();
+        QuestionBank qb = new QuestionBank();
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
             if (auth.isLoggedIn) {
                 int func_answer;
-                QuestionBank qb = new QuestionBank();
                 System.out.println("Welcome back, " + auth.getCurrentCoach().getName());
                 System.out.println("1. Change profile information");
                 System.out.println("2. Add new question to QuestionBank");
@@ -58,15 +59,13 @@ public class Main {
                         System.out.print("Enter category: ");
                         newProb.setCategory(scanner.nextLine());
                         System.out.print("Enter weight: ");
-                        newProb.setWeight(Double.parseDouble(scanner.nextLine()));
+                        newProb.setWeight(scanner.nextInt());
                         newProb.setID(newProb.IDGenerator());
-                        newProb.setWeight(scanner.nextDouble());
-                        newProb.setID("blabla");
-                        newProb.setAuthor(auth.getCurrentCoach().getName());  
+                        newProb.setAuthor(auth.getCurrentCoach().getName());
                         qb.addProblem(newProb);
                         System.out.println("Added Question to Question Bank!");
                         System.out.print("Enter to continue..");
-                        tmp = scanner.nextLine();
+                        scanner.nextLine();
                         break;
                     case 3:
                         tmp = "";
@@ -79,7 +78,6 @@ public class Main {
                         System.out.print("Enter to continue..");
                         tmp = scanner.nextLine();
                         break;
-                        
                     case 4:
                         ct.generateNewContest(auth.getCurrentCoach());
                         System.out.println("Created contest successfully!");
@@ -135,7 +133,6 @@ public class Main {
                         tmp = scanner.nextLine();
                         break;
                 }
-                
             } else {
                 int func_answer;
                 System.out.println("1. Login");
@@ -175,5 +172,5 @@ public class Main {
 //        qb.save();
 
     }
-    
+
 }
