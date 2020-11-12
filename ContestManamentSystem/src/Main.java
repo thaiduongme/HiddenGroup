@@ -4,11 +4,11 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        
+        Authenticator auth = new Authenticator();
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
-            if (Authenticator.isLoggedin) {
+            if (auth.isLoggedin()) {
                 int func_answer;
                 QuestionBank qb = new QuestionBank();
                 System.out.println("Welcome back, " + Authenticator.getCurrentCoach().getName());
@@ -94,7 +94,7 @@ public class Main {
                         qb.exportTo(scanner.nextLine());
                         break;
                     case 10:
-                        Authenticator.logout();
+                        auth.logout();
                         break;
                 }
                 clearScreen();
@@ -119,10 +119,10 @@ public class Main {
                 }
                 switch (func_answer) {
                     case 1:
-                        Authenticator.login();
+                        auth.login();
                         break;
                     case 2:
-                        Authenticator.register();
+                        auth.register();
                         break;
                 }
             }
