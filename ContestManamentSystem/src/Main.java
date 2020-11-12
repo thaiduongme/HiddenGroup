@@ -3,7 +3,6 @@ import java.io.IOException;
 
 public class Main {
 
-<<<<<<< HEAD
     public static void main(String[] args) throws IOException, InterruptedException {
         
         while (true) {
@@ -137,23 +136,7 @@ public class Main {
 //       
 //        qb.updateProblem("000012045845");
 //        qb.save();
-=======
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Coach duong = new Coach();
-        duong.setName("Duong");
-        QuestionBank qb = new QuestionBank();
-//        Problem newProb= new Problem("MAE","12","cau1","cau 1 shordesc","cau 1 full desc",15,"Duong");
-//        qb.addProblem(newProb);
-        qb.addProblem(new Problem("MAE","12","cau1","cau 1 shordesc","cau 1 full desc",15,"Duong"));
-       
-        qb.updateProblem("0042");
-        qb.updateProblem("000012045845");
-        qb.save();
->>>>>>> aa3d51bbf71037dbdba9a2ce2435c73d2ae811b3
-//        qb.export("test.txt");
+
     }
     
     public static void clearScreen() {

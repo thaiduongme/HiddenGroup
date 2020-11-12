@@ -31,20 +31,7 @@ public class Problem {
         LocalDateTime now = LocalDateTime.now();
         this.createdDate = dtf.format(now);
     }
-
-    public Problem(String category, String ID, String probName, String shortDesc, String fullDescLink, double weight, String author) {
-        this.ID = IDGenerator(ID);
-        this.probName = probName;
-        this.shortDesc = shortDesc;
-        this.fullDescLink = fullDescLink;
-        this.weight = weight;
-        this.category = category;
-        this.author = author;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        this.createdDate = dtf.format(now);
-    }
-
+    
     public Problem(String category, String ID, String probName, String shortDesc, String fullDescLink, double weight, String author, String createdDate) {
         this.ID = IDGenerator(ID);
         this.probName = probName;
@@ -129,10 +116,10 @@ public class Problem {
         ID = String.format("%06d", Integer.parseInt(ID.replaceAll("[^0-9]", "")));
         return ID;
     }
-
+    //generate ID from 0 -> 99
     public String IDGenerator() {
         Random rand = new Random();
-        ID = String.format("%06d", rand.nextInt(10000));
+        ID = String.format("%06d", rand.nextInt(100));
         return ID;
     }
 
@@ -162,19 +149,16 @@ public class Problem {
                 try {
                     setWeight(Double.parseDouble(temp));
                 } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                    System.err.println("invalid value");
                 }
             }
             System.out.println("Change author:");
             if ((temp = in.readLine()).equals("")); else {
                 setAuthor(temp);
             }
-
-//            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 
 
