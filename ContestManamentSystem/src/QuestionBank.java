@@ -1,3 +1,4 @@
+
 /**
  *
  * @author Thai Duong
@@ -175,19 +176,17 @@ public class QuestionBank {
 
     // Thêm câu hỏi
     public void addProblem(Problem newProb) {
-        boolean isUnique = true;
+        int count=0;
         try {
             while (true) {
-                for (Problem p : lstProblems) {
-                    if (p.getID() == newProb.getID() || Integer.parseInt(p.getID()) == Integer.parseInt(newProb.getID())) {
-                        isUnique = false;
-                        break;
-                    }
+                if(count>100)
+                {
+                    System.out.println("Question Bank is full"+"\nProblem wasn't added");
+                    break;
                 }
-            if (isUnique == false) {
-                newProb.setID(newProb.IDGenerator());
-                isUnique = true;
-                continue;
+                if (isUnique(newProb) == false) {
+                    newProb.setID(newProb.IDGenerator());
+                    count++;
                 } else {
                     lstProblems.add(newProb);
                     break;
@@ -196,7 +195,17 @@ public class QuestionBank {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
+    }
+    //kiểm tra sự độc nhất của ID
+    public boolean isUnique(Problem newProb) {
+        boolean isUnique = true;
+        for (Problem p : lstProblems) {
+            if (p.getID() == newProb.getID() || Integer.parseInt(p.getID()) == Integer.parseInt(newProb.getID())) {
+                isUnique = false;
+                break;
+            }
+        }
+        return isUnique;
     }
 
 }

@@ -4,12 +4,16 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        
+        Authenticator auth = new Authenticator();
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
+<<<<<<< HEAD
             Authenticator auth = new Authenticator();
             if (auth.isLoggedin) {
+=======
+            if (auth.isLoggedin()) {
+>>>>>>> ac7a02e9b30faf7a13ae27edd54a8e62e4887f8b
                 int func_answer;
                 QuestionBank qb = new QuestionBank();
                 System.out.println("Welcome back, " + auth.getCurrentCoach().getName());
