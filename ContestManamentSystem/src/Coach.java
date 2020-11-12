@@ -1,6 +1,6 @@
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -49,12 +49,12 @@ public class Coach implements Serializable {
                 String currentPassword = validator.getStringInput("Current password: ", "\\w+");
                 String newPassword = validator.getStringInput("New password: ", "\\w+");
                 String confirmNewPassword = validator.getStringInput("Confirm new password: ", "\\w+");
-                if(currentPassword.equals(newPassword)) {
+                if(currentPassword.equals(this.password)) {
                     if (newPassword.equals(confirmNewPassword)) {
                         this.password = newPassword;
                         break;
                     } else {
-                        System.out.println("Incorrect password");
+                        System.out.println("Do not match! Try again");
                     }
                 } else {
                     System.out.println("Incorrect password");
@@ -128,28 +128,42 @@ public class Coach implements Serializable {
         return id;
     }
 
-    public void updateInfo() {
-        Coach c = new Coach();
+    public List<Coach> readFromFile() throws FileNotFoundException {
+//        Coach c = new Coach();
+//        try {
+//            FileReader fr = new FileReader("Coaches.dat");      //thay thế toString cũ của currentCoach bằng " "
+//            BufferedReader br = new BufferedReader(fr);
+//            String line = "";
+//            while(true) {
+//                line = br.readLine();
+//                if(line.contains(c.getUserName())) {
+//                    line = line.replace(c.toString(), " ");
+//                }
+//            }
+//        } catch (Exception e) {
+//        }
+//        try {
+//            FileWriter fw = new FileWriter("Coaches.dat", true);    //ghi toString mới cho currentCoach
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            bw.write(c.toString());
+//            bw.close();
+//            fw.close();
+//        } catch (Exception e) {
+//        }
+        List<Coach> lstCoach = new ArrayList<>();
         try {
-            FileReader fr = new FileReader("Coaches.dat");      //ghi toString mới cho currentCoach
+            FileReader fr = new FileReader("Coaches.dat");
             BufferedReader br = new BufferedReader(fr);
             String line = "";
             while(true) {
                 line = br.readLine();
-                if(line.contains(c.getUserName())) {
-                    line = line.replace(c.toString(), " ");
-                }
+                if(line == null) break;
             }
+            lstCoach.add(new Coach(line.split("\\|")[0], line.split("\\|")[1], line.split("\\|")[2], 
+                                   line.split("\\|")[3], line.split("\\|")[4], line.split("\\|")[5])); 
         } catch (Exception e) {
         }
-        try {
-            FileWriter fw = new FileWriter("Coaches.dat", true);    //thay thế toString cũ của currentCoach bằng " "
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(c.toString());
-            bw.close();
-            fw.close();
-        } catch (Exception e) {
-        }
+        return lstCoach; 
     }
         
     @Override

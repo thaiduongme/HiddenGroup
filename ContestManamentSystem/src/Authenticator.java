@@ -41,8 +41,19 @@ public class Authenticator {
         // Else
 	// Thông báo “You’re already logged in!”
 
+<<<<<<< HEAD
 
    
+=======
+    public Authenticator() {
+        this.path = "Coaches.dat";
+    }
+    
+    public boolean isLoggedin(){
+        return false;
+    }
+       
+>>>>>>> ef8831e4a311d4091e4b1deb5327ec6a6e613ce4
     public void login() throws IOException {
         BufferedReader nhap = new BufferedReader(new InputStreamReader(System.in));
         lstCoaches.clear();
@@ -73,10 +84,14 @@ public class Authenticator {
         boolean isExisted = false;
         for (Coach p : lstCoaches) {
             if (p.getUserName().equals(userName) && p.getPassword().equals(passWord)) {
+<<<<<<< HEAD
                 System.out.println("Welcome back, " + userName);
                 currentCoach = p;
                 this.isLoggedIn = true;
                 isExisted = true;
+=======
+                System.out.println("Welcome back: " + userName);
+>>>>>>> ef8831e4a311d4091e4b1deb5327ec6a6e613ce4
                 break;
             }
         }
