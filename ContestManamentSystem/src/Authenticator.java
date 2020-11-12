@@ -37,7 +37,7 @@ public class Authenticator {
     public boolean isLoggedin(){
         return false;
     }
-    
+       
     public void login() throws IOException {
         BufferedReader nhap = new BufferedReader(new InputStreamReader(System.in));
         lstCoaches.clear();
@@ -65,9 +65,8 @@ public class Authenticator {
         String passWord = nhap.readLine();
         boolean isExisted = false;
         for (Coach p : lstCoaches) {
-            if (p.getUserName() == userName && p.getPassword() == passWord) {
+            if (p.getUserName().equals(userName) && p.getPassword().equals(passWord)) {
                 System.out.println("Welcome back: " + userName);
-                isExisted = true;
                 break;
             }
         }

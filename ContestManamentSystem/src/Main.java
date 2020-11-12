@@ -8,10 +8,11 @@ public class Main {
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
-            if (Authenticator.isLoggedin) {
+            Authenticator auth = new Authenticator();
+            if (auth.isLoggedin) {
                 int func_answer;
                 QuestionBank qb = new QuestionBank();
-                System.out.println("Welcome back, " + Authenticator.getCurrentCoach().getName());
+                System.out.println("Welcome back, " + auth.getCurrentCoach().getName());
                 System.out.println("1. Change profile information");
                 System.out.println("2. Add new question to QuestionBank");
                 System.out.println("3. Change Problem Info by ID");
@@ -38,7 +39,7 @@ public class Main {
                 }
                 switch (func_answer) {
                     case 1:
-                        Authenticator.getCurrentCoach().changeInfo();
+                        auth.getCurrentCoach().changeInfo();
                         System.out.println("Changed Successfully!");
                         break;
                     case 2:
@@ -55,7 +56,7 @@ public class Main {
                         System.out.print("Enter weight: ");
                         newProb.setWeight(scanner.nextDouble());
                         newProb.setID("blabla");
-                        newProb.setCoach(Authenticator.getCurrentCoach());  
+                        newProb.setAuthor(auth.getCurrentCoach().getName());  
                         qb.addProblem(newProb);
                         System.out.println("Added Question to Question Bank!");
                         
@@ -67,13 +68,13 @@ public class Main {
                         
                         break;
                     case 4:
-                        Contest.generateNewContest();
+//                        Contest.generateNewContest();
                         System.out.println("Created contest successfully!");
                         break;
                     case 5:
                         scanner = new Scanner(System.in);
                         System.out.print("Enter Contest ID: ");
-                        Contest.printContest(scanner.nextLine());
+//                        Contest.printContest(scanner.nextLine());
                         break;
                     case 6:
                         qb.sortProblems();
@@ -94,7 +95,7 @@ public class Main {
                         qb.exportTo(scanner.nextLine());
                         break;
                     case 10:
-                        Authenticator.logout();
+                        auth.logout();
                         break;
                 }
                 clearScreen();
@@ -119,10 +120,10 @@ public class Main {
                 }
                 switch (func_answer) {
                     case 1:
-                        Authenticator.login();
+                        auth.login();
                         break;
                     case 2:
-                        Authenticator.register();
+                        auth.register();
                         break;
                 }
             }
