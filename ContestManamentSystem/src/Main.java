@@ -8,10 +8,10 @@ public class Main {
         while (true) {
             System.out.println("===========CONTEST MANAGEMENT SYSTEM===========");
             System.out.println(".....::::::Created by Hidden Group::::::.....");
-            if (auth.isLoggedin()) {
+            if (auth.isLoggedIn) {
                 int func_answer;
                 QuestionBank qb = new QuestionBank();
-                System.out.println("Welcome back, " + Authenticator.getCurrentCoach().getName());
+                System.out.println("Welcome back, " + auth.getCurrentCoach().getName());
                 System.out.println("1. Change profile information");
                 System.out.println("2. Add new question to QuestionBank");
                 System.out.println("3. Change Problem Info by ID");
@@ -38,7 +38,7 @@ public class Main {
                 }
                 switch (func_answer) {
                     case 1:
-                        Authenticator.getCurrentCoach().changeInfo();
+                        auth.getCurrentCoach().changeInfo();
                         System.out.println("Changed Successfully!");
                         break;
                     case 2:
@@ -53,27 +53,32 @@ public class Main {
                         System.out.print("Enter category: ");
                         newProb.setCategory(scanner.nextLine());
                         System.out.print("Enter weight: ");
-                        newProb.setWeight(scanner.nextDouble());
-                        newProb.setID("blabla");
-                        newProb.setCoach(Authenticator.getCurrentCoach());  
+                        newProb.setWeight(Double.parseDouble(scanner.nextLine()));
+                        newProb.setID(newProb.IDGenerator());
+                        newProb.setAuthor(auth.getCurrentCoach().getName());  
                         qb.addProblem(newProb);
                         System.out.println("Added Question to Question Bank!");
                         
                         break;
                     case 3:
-                        scanner = new Scanner(System.in);
-                        System.out.print("Enter Problem ID: ");
-                        qb.updateProblem(scanner.nextLine());
                         
+                        String tmp = "";
+                        scanner = new Scanner(System.in);
+                        while (tmp.equals("")) {
+                            System.out.print("Enter Problem ID: ");
+                            tmp = scanner.nextLine();
+                        }
+                        qb.updateProblem(tmp);
                         break;
+                        
                     case 4:
-                        Contest.generateNewContest();
+//                        Contest.generateNewContest();
                         System.out.println("Created contest successfully!");
                         break;
                     case 5:
                         scanner = new Scanner(System.in);
                         System.out.print("Enter Contest ID: ");
-                        Contest.printContest(scanner.nextLine());
+//                        Contest.printContest(scanner.nextLine());
                         break;
                     case 6:
                         qb.sortProblems();

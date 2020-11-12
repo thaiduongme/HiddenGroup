@@ -20,6 +20,16 @@ public class Coach implements Serializable {
     public Coach() {
     }
 
+    public Coach(String name, String email, String mobilePhone, String userName, String password) {
+        this.id = IDGenerator();
+        this.name = name;
+        this.email = email;
+        this.mobilePhone = mobilePhone;
+        this.userName = userName;
+        this.password = password;
+    }
+
+    
     public Coach(String id, String name, String email, String mobilePhone, String userName, String password) {
         this.id = IDGenerator();
         this.name = name;

@@ -20,6 +20,17 @@ import java.util.ArrayList;
 public class Authenticator {
     private ArrayList<Coach> lstCoaches = new ArrayList<>();
     private String path;
+    Coach currentCoach;
+    static boolean isLoggedIn = false;
+    
+    public Authenticator() {
+        this.path = "Coaches.dat";
+    }
+    
+    public Coach getCurrentCoach() {
+        return currentCoach;
+    }
+
     // Nếu isLoggedin = false => Yêu cầu người dùng nhập tài khoản, mật khẩu. (username / password)
         // Nếu có username|password ở trong coaches.data
         // Tạo obj currentCoach với các thông tin  =>>> chua hieuuuu
@@ -30,14 +41,8 @@ public class Authenticator {
         // Else
 	// Thông báo “You’re already logged in!”
 
-    public Authenticator() {
-        this.path = "Coaches.dat";
-    }
-    
-    public boolean isLoggedin(){
-        return false;
-    }
-    
+
+   
     public void login() throws IOException {
         BufferedReader nhap = new BufferedReader(new InputStreamReader(System.in));
         lstCoaches.clear();
@@ -61,12 +66,16 @@ public class Authenticator {
             System.err.println(e.getMessage());
         }
         
+        System.out.print("Username: ");
         String userName = nhap.readLine();
+        System.out.print("Password: ");
         String passWord = nhap.readLine();
         boolean isExisted = false;
         for (Coach p : lstCoaches) {
-            if (p.getUserName() == userName && p.getPassword() == passWord) {
-                System.out.println("Welcome back: " + userName);
+            if (p.getUserName().equals(userName) && p.getPassword().equals(passWord)) {
+                System.out.println("Welcome back, " + userName);
+                currentCoach = p;
+                this.isLoggedIn = true;
                 isExisted = true;
                 break;
             }
@@ -102,9 +111,8 @@ public class Authenticator {
     }
     
     public void logout() {
-        if(this.isLoggedin() == false){
-            System.out.println("You're logged out, thanks for using our software");
-        }
+        this.isLoggedIn = false;
+        System.out.println("You're logged out, thanks for using our software");
     }
 
     public void register() throws IOException {
@@ -118,11 +126,8 @@ public class Authenticator {
         // In ra: “Do you want to login? “
         // gọi method login()
         loadLstCoach();
-        Authenticator lg = new Authenticator();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        ArrayList <Coach> lstCoach = new ArrayList<>();
-        System.out.print("Enter ID: ");
-        String ID = in.readLine();
+        
         System.out.print("Enter name: ");
         String name = in.readLine();
         System.out.print("Enter email: ");
@@ -133,19 +138,16 @@ public class Authenticator {
         String userName = in.readLine();
         System.out.print("Enter password: ");
         String pass = in.readLine();
-        Coach c1 = new Coach(ID, name, email, phone, userName, pass);
-        lstCoach.add(c1);
+        Coach c1 = new Coach(name, email, phone, userName, pass);
+        lstCoaches.add(c1);
         
-        String filename = "Coaches.txt";
-        File f = new File(filename);
-        boolean append = f.exists(); // if file exists then append, otherwise create new
         try {
             // Sắp xếp trước khi lưu
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
 
             String output = "";
-            for (Coach p : lstCoach) {
+            for (Coach p : lstCoaches) {
                 output += p.getId() + "|" + p.getName() + "|" + p.getEmail() + "|" + p.getMobilePhone() + "|" + p.getUserName()
                         + "|" + p.getPassword() + "\n";
             }
@@ -155,8 +157,8 @@ public class Authenticator {
             System.err.println(e.getMessage());
         }
         
-        System.out.println("Please login");
-        lg.login();
+        System.out.println("Please login!");
+        login();
 
 }
     // append new object 

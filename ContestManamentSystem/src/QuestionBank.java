@@ -126,7 +126,7 @@ public class QuestionBank {
     public void updateProblem(String ID) {
         boolean isExisted = false;
         for (Problem p : lstProblems) {
-            if (p.getID() == ID || Integer.parseInt(p.getID()) == Integer.parseInt(ID)) {
+            if (p.getID().equals(ID)) {
                 p.changeInfo();
                 isExisted = true;
                 break;
