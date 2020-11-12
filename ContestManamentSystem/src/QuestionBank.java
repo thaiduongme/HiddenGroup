@@ -176,10 +176,17 @@ public class QuestionBank {
 
     // Thêm câu hỏi
     public void addProblem(Problem newProb) {
+        int count=0;
         try {
             while (true) {
+                if(count>100)
+                {
+                    System.out.println("Question Bank is full"+"\nProblem wasn't added");
+                    break;
+                }
                 if (isUnique(newProb) == false) {
                     newProb.setID(newProb.IDGenerator());
+                    count++;
                 } else {
                     lstProblems.add(newProb);
                     break;
