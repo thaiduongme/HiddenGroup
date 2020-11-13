@@ -59,12 +59,13 @@ public class Main {
                         System.out.print("Enter category: ");
                         newProb.setCategory(scanner.nextLine());
                         System.out.print("Enter weight: ");
-                        newProb.setWeight(scanner.nextInt());
+                        newProb.setWeight(scanner.nextDouble());
                         newProb.setID(newProb.IDGenerator());
                         newProb.setAuthor(auth.getCurrentCoach().getName());
                         qb.addProblem(newProb);
                         System.out.println("Added Question to Question Bank!");
                         System.out.print("Enter to continue..");
+                        scanner = new Scanner(System.in);
                         scanner.nextLine();
                         break;
                     case 3:
@@ -79,7 +80,7 @@ public class Main {
                         tmp = scanner.nextLine();
                         break;
                     case 4:
-                        ct.generateNewContest(auth.getCurrentCoach());
+                        ct.generateNewContest(auth.getCurrentCoach(), qb);
                         System.out.println("Created contest successfully!");
                         scanner = new Scanner(System.in);
                         System.out.print("Enter to continue..");
@@ -113,7 +114,8 @@ public class Main {
                     case 8:
                         scanner = new Scanner(System.in);
                         System.out.print("Path to QB file: ");
-                        qb.loadProblems(scanner.nextLine());
+                        qb = new QuestionBank(scanner.nextLine());
+//                        qb.loadProblems(scanner.nextLine());
                         scanner = new Scanner(System.in);
                         System.out.print("Enter to continue..");
                         tmp = scanner.nextLine();

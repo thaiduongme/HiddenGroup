@@ -30,11 +30,10 @@ public class Contest {
         this.ID = ID;
     }
 
-    protected void generateNewContest(Coach currentCoach) {
+    protected void generateNewContest(Coach currentCoach, QuestionBank qtBank) {
         
         Random rd = new Random();
         ID = String.format("%06d", rd.nextInt(10000));
-        QuestionBank qtBank = new QuestionBank();
         rplst = qtBank.getLstProblems();
         ArrayList<String> categories = qtBank.getCategories();
         for (String cat : categories) {
@@ -46,7 +45,6 @@ public class Contest {
     public void getRandProb(String category) {
         Random rand = new Random();
         for (Problem p : rplst) {
-            System.out.println(p);
             if (p.getCategory().equals(category)) {
                 contestTemp.add(p);
                 rplst.remove(p);
