@@ -80,7 +80,7 @@ public class QuestionBank {
      * * CÁC METHODS **
      */
     // Load Problems từ path vào lstProblems
-    public void loadProblems(String path) {
+    protected void loadProblems(String path) {
         // Xóa toàn bộ phần tử trong lstProblems
         lstProblems.clear();
         try {
@@ -105,7 +105,7 @@ public class QuestionBank {
 
     // Sắp xếp các Problems trong lstProblems theo Category (Ascending)
     // Nếu chung Category, thì sắp xếp theo ID
-    public void sortProblems() {
+    protected void sortProblems() {
         Collections.sort(lstProblems, new Comparator<Problem>() {
             @Override
             public int compare(Problem t1, Problem t2) {
@@ -119,7 +119,7 @@ public class QuestionBank {
     }
 
     // In ra các Problems trong lstProblems
-    public void printProblems() {
+    protected void printProblems() {
         sortProblems();
         for (Problem p : lstProblems) {
             System.out.println(p);
@@ -127,7 +127,7 @@ public class QuestionBank {
     }
 
     // Cập nhật Problems theo ID
-    public void updateProblem(String ID) {
+    protected void updateProblem(String ID) {
         boolean isExisted = false;
         for (Problem p : lstProblems) {
             if (p.getID().equals(ID)) {
@@ -142,7 +142,7 @@ public class QuestionBank {
     }
 
     // Xuất QuestionBank vào 1 file nào đó
-    public void exportTo(String path) {
+    protected void exportTo(String path) {
         try {
             // Sắp xếp trước khi xuất
             sortProblems();
@@ -160,7 +160,7 @@ public class QuestionBank {
     }
 
     // Lưu QuestionBank
-    public void save() {
+    protected void save() {
         try {
             // Sắp xếp trước khi lưu
             sortProblems();
@@ -178,7 +178,7 @@ public class QuestionBank {
     }
 
     // Thêm câu hỏi
-    public void addProblem(Problem newProb) {
+    protected void addProblem(Problem newProb) {
         int count=0;
         try {
             while (true) {
@@ -200,7 +200,7 @@ public class QuestionBank {
         }
     }
     //kiểm tra sự độc nhất của ID
-    public boolean isUnique(Problem newProb) {
+    protected boolean isUnique(Problem newProb) {
         boolean isUnique = true;
         for (Problem p : lstProblems) {
             if (p.getID() == newProb.getID() || Integer.parseInt(p.getID()) == Integer.parseInt(newProb.getID())) {

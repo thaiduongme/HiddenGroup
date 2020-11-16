@@ -13,6 +13,7 @@ public class Contest {
 
     ArrayList<Problem> rplst = new ArrayList<>();
     ArrayList<Problem> contestTemp = new ArrayList<>();
+    
     public String ID;
 
     public Contest() {
@@ -29,11 +30,14 @@ public class Contest {
     public void setID(String ID) {
         this.ID = ID;
     }
-
+    public ArrayList<Problem> getContestTemp()
+    {
+        return contestTemp;
+    }
     protected void generateNewContest(Coach currentCoach, QuestionBank qtBank) {
         
         Random rd = new Random();
-        ID = String.format("%06d", rd.nextInt(10000));
+        ID = String.format("%6d", rd.nextInt(10000));
         rplst = qtBank.getLstProblems();
         ArrayList<String> categories = qtBank.getCategories();
         for (String cat : categories) {
@@ -42,7 +46,7 @@ public class Contest {
         save(currentCoach);
     }
 
-    public void getRandProb(String category) {
+    protected void getRandProb(String category) {
         Random rand = new Random();
         for (Problem p : rplst) {
             if (p.getCategory().equals(category)) {
@@ -67,7 +71,7 @@ public class Contest {
       }
     }
 
-    public void save(Coach currentCoach) {
+    protected void save(Coach currentCoach) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String createdDate = dtf.format(now);
@@ -84,7 +88,7 @@ public class Contest {
             writer.write(output.trim());
             writer.close();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            
         }
         loadContest(ID+".txt");
     }
@@ -107,7 +111,6 @@ public class Contest {
 
             in.close();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
         }
     }
 }

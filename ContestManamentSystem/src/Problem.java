@@ -125,7 +125,7 @@ public class Problem {
         return ID;
     }
 
-    public void changeInfo() {
+    protected void changeInfo() {
         try {
             String temp = "";
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

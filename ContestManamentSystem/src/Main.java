@@ -23,7 +23,7 @@ public class Main {
                 System.out.println("7. Save Question Bank");
                 System.out.println("8. Load Question Bank");
                 System.out.println("9. Export Question Bank");
-                System.out.println("10. Exit");
+                System.out.println("10. Log out");
                 while (true) {
                     Scanner scanner = new Scanner(System.in);
                     System.out.print("Please select one option: ");
@@ -139,12 +139,13 @@ public class Main {
                 int func_answer;
                 System.out.println("1. Login");
                 System.out.println("2. Register");
+                System.out.println("3. Exit");
                 while (true) {
                     Scanner scanner = new Scanner(System.in);
                     System.out.print("Enter a number: ");
                     if (scanner.hasNextInt()) {
                         func_answer = scanner.nextInt();
-                        if (func_answer == 1 || func_answer == 2) {
+                        if (func_answer == 1 || func_answer == 2||func_answer ==3) {
                             break;
                         } else {
                             continue;
@@ -160,6 +161,8 @@ public class Main {
                     case 2:
                         auth.register();
                         break;
+                    case 3;
+                        System.exit(0);
                 }
             }
         }
