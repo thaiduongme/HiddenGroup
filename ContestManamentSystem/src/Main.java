@@ -161,7 +161,7 @@ public class Main {
                     case 2:
                         auth.register();
                         break;
-                    case 3;
+                    case 3:
                         System.exit(0);
                 }
             }
