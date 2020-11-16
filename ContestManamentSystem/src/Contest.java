@@ -37,7 +37,7 @@ public class Contest {
     protected void generateNewContest(Coach currentCoach, QuestionBank qtBank) {
         
         Random rd = new Random();
-        ID = String.format("%6d", rd.nextInt(10000));
+        ID = String.format("%05d", rd.nextInt(10000));
         rplst = qtBank.getLstProblems();
         ArrayList<String> categories = qtBank.getCategories();
         for (String cat : categories) {

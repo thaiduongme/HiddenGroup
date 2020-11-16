@@ -1,5 +1,25 @@
-CEA|000009|Viet assembly|Chuong trinh tinh a + b|cms.fpt.edu.vn|15.0|Duong|2020/11/12 09:32:31
-CSI|000064|Chuyen doi he|Convert F0F to Decimal|cms.fpt.edu.vn|15.0|Duong|2020/11/12 09:50:24
-PRO|000001|Tao chuong trinh|Tao chuong trinh in ra "Hello world"|cms.fpt.edu.vn|15.0|Duong|2020/11/11 17:24:15
-MAE|000021|1 + 1 = ?|trung co truoc|met |1.5|Ten ban la gi|2020/11/13 13:04:47
-SQL|000021|Tim foreign key cua 2 bang sau|Nhin vao hinh xem|cms.fpt.edu.vn|1.5|Duong|2020/11/13 13:04:47
+CEA|000009|write assembly program|Calculate a + b|cms.fpt.edu.vn|5.0|Duong|2020/11/12 09:32:31
+CEA|000002|write assembly program|Calculate sum of given array|cms.fpt.edu.vn|20.0|Duong|2020/11/12 08:32:31
+CEA|000002|write assembly program|Calculate a x b|cms.fpt.edu.vn|10.0|Duong|2020/11/12 05:32:31
+CEA|000002|write assembly program|Calculate a / b|cms.fpt.edu.vn|5.0|Duong|2020/11/12 01:32:31
+CEA|000002|write assembly program|Calculate a - b|cms.fpt.edu.vn|5.0|Duong|2020/11/13 08:32:31
+CSI|000064|Convert|Convert F0F to Decimal|cms.fpt.edu.vn|15.0|Duong|2020/11/12 09:50:24
+CSI|000014|Convert|Convert AAA to Octal|cms.fpt.edu.vn|15.0|Duong|2020/11/12 02:50:24
+CSI|000014|Convert|Convert BBB to Binary|cms.fpt.edu.vn|15.0|Duong|2020/11/12 01:50:24
+CSI|000014|Convert|Convert CCC to Octal|cms.fpt.edu.vn|25.0|Duong|2020/11/12 05:50:24
+CSI|000014|Convert|Convert EEE to Binary|cms.fpt.edu.vn|25.0|Duong|2020/11/12 06:50:24
+PRO|000004|Make program|print "Hello world"|cms.fpt.edu.vn|5.0|Duong|2020/11/11 17:24:15
+PRO|000001|Make program|store student information|cms.fpt.edu.vn|30.0|Duong|2020/11/11 15:24:15
+PRO|000006|Make program|make Eng-Viet dictionary|cms.fpt.edu.vn|35.0|Duong|2020/11/11 12:24:15
+PRO|000007|Make program|store teacher information|cms.fpt.edu.vn|35.0|Duong|2020/11/11 11:24:15
+PRO|000007|Make program|make a CMS program|cms.fpt.edu.vn|35.0|Duong|2020/11/11 15:24:15
+MAE|000021|calculate|1 + 1 = ?|math.com|15|Duong|2020/11/13 13:04:47
+MAE|000035|calculate|20 + 1 = ?|math.com|30|Duong|2020/11/13 11:04:47
+MAE|000045|calculate|20 x 91 = ?|math.com|40|Duong|2020/11/13 11:05:47
+MAE|000024|calculate|20 - 21 = ?|math.com|30|Duong|2020/11/13 11:03:47
+MAE|000012|calculate|20 + 1 = ?|math.com|30|Duong|2020/11/13 11:02:47
+SQL|000028|Find keyword|Used to sort data in descending order|cms.fpt.edu.vn|1.5|Duong|2020/11/13 13:04:47
+SQL|000030|choose answer|what is the structure to store data?|mySQL.edu|25.0|Nghia|2020/11/13 13:04:57
+SQL|000010|data type|what is data type?|mySQL.edu|15.0|Nghia|2020/11/13 13:04:57
+SQL|000090|database|what is database?|mySQL.edu|25.0|Nghia|2020/11/13 13:04:57
+SQL|000091|server|what is server?|mySQL.edu|25.0|Nghia|2020/11/13 13:04:57
