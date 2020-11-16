@@ -162,6 +162,7 @@ public class Main {
                         auth.register();
                         break;
                     case 3:
+                        System.out.println("Exit succesfully!");
                         System.exit(0);
                 }
             }
